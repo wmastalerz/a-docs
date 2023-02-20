@@ -7,8 +7,9 @@
 ## General info
 This project is simple docs helper.
 It contains tools like:
-- rst splitter and 
+- rst splitter,
 - docx joiner, 
+
 in order to help in docs transformation.
 	
 ## Technologies

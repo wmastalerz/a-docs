@@ -1,0 +1,60 @@
+# Makefile
+# 
+# Converts rst to other formats (HTML, PDF, DOCX, RTF, ODT, EPUB) using pandoc
+# <http://johnmacfarlane.net/pandoc/>
+#
+# Run "make" (or "make all") to convert to all other formats
+#
+# Run "make clean" to delete converted files
+
+# Convert all files in this directory that have a .md suffix
+SOURCE_DOCS := $(wildcard *.rst)
+
+EXPORTED_DOCS=\
+ $(SOURCE_DOCS:.rst=.html) \
+ $(SOURCE_DOCS:.rsr=.pdf) \
+ $(SOURCE_DOCS:.rst=.docx) \
+ $(SOURCE_DOCS:.rst=.rtf) \
+ $(SOURCE_DOCS:.rst=.odt) \
+ $(SOURCE_DOCS:.rst=.epub)
+
+RM=/bin/rm
+
+PANDOC=/usr/bin/pandoc
+
+PANDOC_OPTIONS=--smart --standalone
+
+PANDOC_HTML_OPTIONS=--to html5
+PANDOC_PDF_OPTIONS=
+PANDOC_DOCX_OPTIONS=
+PANDOC_RTF_OPTIONS=
+PANDOC_ODT_OPTIONS=
+PANDOC_EPUB_OPTIONS=--to epub3
+
+
+# Pattern-matching Rules
+
+%.html : %.rst
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_HTML_OPTIONS) -o $@ $<
+
+%.pdf : %.rst
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_PDF_OPTIONS) -o $@ $<
+
+%.docx : %.rst
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_DOCX_OPTIONS) -o $@ $<
+
+%.rtf : %.rst
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_RTF_OPTIONS) -o $@ $<
+
+%.odt : %.rst
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_ODT_OPTIONS) -o $@ $<
+
+%.epub : %.rst
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_EPUB_OPTIONS) -o $@ $<
+
+# rstfromdocx doc.docx
+# Targets and dependencies
+
+.PHONY: all clean
+
+all : $(EXPORTED_DOCS)

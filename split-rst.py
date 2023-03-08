@@ -2,7 +2,7 @@
 # Loads input file (first arg), separates it by chapter headings names,
 # then writes the result to a named tree of "source" subdir (second arg).
 # the headers will be names of SubSubdirectories 
-######### example: python split-docs.py TestDataSyntax.rst newSubBranchName
+######### example: python split-rst.py TestDataSyntax.rst newSubBranchName
 ######### NOTE: BE CAREFULLY!!! it remove all old related named subdirectories
 
 import sys

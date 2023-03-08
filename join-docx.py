@@ -13,12 +13,10 @@ def join_doc():
     """
     Join an .docx files into one file.
     """
-    
     try:    
         file1_path = sys.argv[2] 
         doc1=docx.Document(file1_path)
         print("base:"+file1_path)
-
         for arg in sys.argv[3:]:
             file_path = arg
             print("...adding: "+file_path)    
@@ -26,8 +24,7 @@ def join_doc():
             doc = docx.Document(file_path)
             # append the content of doc to doc1
             for element in doc.element.body:
-                doc1.element.body.append(element)
-            
+                doc1.element.body.append(element)     
         # specify and save the output file
         output_path = sys.argv[1]
         doc1.save(output_path)

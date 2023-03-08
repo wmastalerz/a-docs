@@ -67,35 +67,35 @@ def split_rst(filename):
     chunks.append(current_chunk)
     return chunks[1:]
 
+if __name__ == "__main__":
+    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+    logger = logging.getLogger('split-rst')
+    chunks = split_rst( sys.argv[1] )
 
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-logger = logging.getLogger('split-rst')
-chunks = split_rst( sys.argv[1] )
-
-for part in chunks:
-    path = 'source/'+ sys.argv[2] + '/' + slugify(part.split("\n",1)[0])
-    file = path + "/index.rst"
-    print(path+"/media :")
-    try:
-        if os.path.exists(path):
-            shutil.rmtree(path)
-        os.makedirs(path)
-        file = open(file , "w")
-        file.write(part)
-        file.close()
-        file_names = re.findall(r'\b\w+\.png\b', part)
-        print(str(file_names))
-        sdir = os.getcwd()+'/media'
-        os.makedirs(sdir,exist_ok=True)
-        ddir = path+'/media'
-        os.makedirs(ddir,exist_ok=True)    
-        for f in file_names:
-            source = os.path.join(sdir,f)
-            destin = os.path.join(ddir,f)
-            if os.path.isfile(source):
-                shutil.move(source, destin)
-    except FileExistsError as e:
-        logger.error('Failed write: '+ str(e))
+    for part in chunks:
+        path = 'source/'+ sys.argv[2] + '/' + slugify(part.split("\n",1)[0])
+        file = path + "/index.rst"
+        print(path+"/media :")
+        try:
+            if os.path.exists(path):
+                shutil.rmtree(path)
+            os.makedirs(path)
+            file = open(file , "w")
+            file.write(part)
+            file.close()
+            file_names = re.findall(r'\b\w+\.png\b', part)
+            print(str(file_names))
+            sdir = os.getcwd()+'/media'
+            os.makedirs(sdir,exist_ok=True)
+            ddir = path+'/media'
+            os.makedirs(ddir,exist_ok=True)    
+            for f in file_names:
+                source = os.path.join(sdir,f)
+                destin = os.path.join(ddir,f)
+                if os.path.isfile(source):
+                    shutil.move(source, destin)
+        except FileExistsError as e:
+            logger.error('Failed write: '+ str(e))
     
     
 

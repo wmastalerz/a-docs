@@ -33,5 +33,6 @@ def join_doc():
         logger.error(str(e).replace("Package", " File"))
     except (IndexError) as e:
         logger.error(str(e).replace("list index out of range", " Use: \"python join-docx.py  output.docx input1-base.docx input2.docx ...\""))
-                
-join_doc()
+
+if __name__ == "__main__":                
+    join_doc()
